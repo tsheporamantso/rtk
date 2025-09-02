@@ -12,7 +12,6 @@ const initialState = {
 export const getCartItems = createAsyncThunk("getCartItems", async () => {
   try {
     const { data } = await axios.get(url);
-    console.log(data);
     return data;
   } catch (error) {
     console.log(error);
@@ -30,7 +29,6 @@ const cartSlice = createSlice({
       .addCase(getCartItems.fulfilled, (state, action) => {
         state.isLoading = false;
         state.cartItems = action.payload;
-        console.log(state.cartItems);
       })
       .addCase(getCartItems.rejected, (state) => {
         state.isLoading = false;
