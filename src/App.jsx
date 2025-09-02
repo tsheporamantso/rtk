@@ -2,15 +2,19 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Navbar from "./components/Navbar";
 import CartContainer from "./components/CartContainer";
-import { getCartItems } from "./features/cart/cartSlice";
+import { getCartItems, calculateTotal } from "./features/cart/cartSlice";
 
 function App() {
   const { cartItems, isLoading } = useSelector((store) => store.cart);
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(calculateTotal());
+  }, [cartItems]);
+
+  useEffect(() => {
     dispatch(getCartItems());
-  }, []);
+  }, [dispatch]);
 
   if (isLoading) {
     return (
